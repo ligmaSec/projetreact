@@ -11,7 +11,7 @@ const ProductItemForm = ({ addToCart }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     addToCart(parseInt(amount)); // Pass the amount as an integer to addToCart
-    setAmount(1);
+    setAmount(1); //reset de l'input a 1 apres ajout dans le panier
   };
 
   return (

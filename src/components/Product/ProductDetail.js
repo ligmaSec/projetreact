@@ -21,17 +21,18 @@ const cartReducer = (state, action) => {
   }
 };
 
-export const Product = () => {
+
+
+export const ProductDetail = ({ prodId }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cartItems, dispatch] = useReducer(cartReducer, []);
-
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/product")
+      .get(`http://localhost:3000/api/product/${prodId}`)
       .then((response) => {
-        setProducts(response.data.products);
+        setProducts(response.data.product);
         setLoading(false);
       })
       .catch((error) => {
@@ -39,7 +40,7 @@ export const Product = () => {
         setError("Failed to fetch products. Please try again later.");
         setLoading(false);
       });
-  }, []);
+  }, [prodId]);
 
   const addToCart = (product) => {
     dispatch({ type: "ADD_TO_CART", payload: product });
@@ -66,25 +67,24 @@ export const Product = () => {
       </div>
     );
   }
-
+  const item = products
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       <section className={classes.product}>
-        <Row xs={1} md={2} lg={4} className="g-4">
-          {products.map((item) => (
+        <Row xs={1} md={1} lg={1} className="g-4">
             <ProductItem
               key={item._id}
               productId={item._id}
               name={item.name}
               images={item.images}
               price={item.price + " €"}
+              description={item.description}
               addToCart={() => addToCart(item)}
             />
-          ))}
         </Row>
       </section>
     </CartContext.Provider>
   );
 };
 
-export default Product;
+export default ProductDetail;

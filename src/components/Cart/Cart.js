@@ -26,7 +26,7 @@ const Cart = ({ onClose }) => {
         <Modal.Title>Cart</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Table striped bordered hover>
+        <Table striped hover>
           <thead>
             <tr>
               <th>Name</th>

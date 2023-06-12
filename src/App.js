@@ -1,29 +1,26 @@
-import React, { useState } from 'react';
-import Header from './components/Layout/Header';
-import Product from './components/Product/Product';
-import Cart from './components/Cart/Cart';
-import { CartProvider } from './components/Cart/CartContext';
+import React from "react";
+import "./App.css"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from "./components/UI/Home";
+import Desc from "./components/UI/Desc";
 
-const App = () => {
-  const [cartIsShown, setCartIsShown] = useState(false);
 
-  const showCartHandler = () => {
-    setCartIsShown(true);
-  };
-
-  const hideCartHandler = () => {
-    setCartIsShown(false);
-  };
-
+function App() {
   return (
-    <CartProvider>
-      {cartIsShown && <Cart onClose={hideCartHandler} show={cartIsShown} />}
-      <Header onShowCart={showCartHandler} />
-      <main>
-        <Product />
-      </main>
-    </CartProvider>
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route index element={<Home />} />
+        <Route path="/product/:id" element={<Desc />} />
+        <Route path="*" element={<Home />}/>
+  
+      </Routes>
+    </BrowserRouter>
+  
+    
+    </>
   );
-};
+}
 
 export default App;

@@ -1,17 +1,16 @@
 import React, { createContext, useState } from 'react';
 
-// Create the CartContext
+// context du cart
 export const CartContext = createContext();
 
-// Create the CartProvider component
+// composant cart provider
 export const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
 
-// Function to add an item to the cart
- // Function to add an item to the cart
+// ajout item dans le cart
 const addToCart = (item) => {
     setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex((prevItem) => prevItem.productId === item.productId);
+      const existingItemIndex = prevItems.findIndex((prevItem) => prevItem.productId === item.productId); //verification produit existant
   
       if (existingItemIndex !== -1) {
         const updatedItems = [...prevItems];
@@ -23,12 +22,12 @@ const addToCart = (item) => {
     });
   };
    
-  // Function to remove an item from the cart
+  // enlever item du cart
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.productId !== itemId));
   };
-
-  // Calculate the total amount
+  const cartQuantity = cartItems.reduce((total, item) => total + item.amount, 0);// calcul de la quantite d'items
+  // calcul du total
   const totalAmount = cartItems.reduce((total, item) => {
     const price = typeof item.price === 'number' ? item.price : parseFloat(item.price.replace(',', '.'));
     return total + price * item.amount;
@@ -41,6 +40,7 @@ const addToCart = (item) => {
         totalAmount,
         addToCart,
         removeFromCart,
+        cartQuantity
       }}
     >
       {props.children}

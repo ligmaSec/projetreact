@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import ProductItemForm from './ProductItemForm';
 import { CartContext } from '../Cart/CartContext';
+import { Link } from "react-router-dom";
 
 const ProductItem = (props) => {
   const { addToCart } = useContext(CartContext);
@@ -14,7 +15,9 @@ const ProductItem = (props) => {
   return (
     <Col>
       <Card>
-        <Card.Img variant="top" src={props.images} />
+      <Link to={"/product/"+props.productId}>
+      <Card.Img variant="top" src={props.images} />
+      </Link>
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>

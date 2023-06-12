@@ -1,14 +1,13 @@
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
-import CartIcon from "../Cart/CartIcon";
-
+import { CartContext } from "../Cart/CartContext";
+import { useContext } from "react";
 function HeaderCartButton(props) {
-  function addCart(){
-    console.log("Add")
-  }
+
+    const { cartQuantity } = useContext(CartContext);
   return (
     <Button variant="primary" onClick={props.onClick}>
-      your cart <Badge bg="secondary">9</Badge>
+      your cart <Badge bg="secondary">{cartQuantity}</Badge>
       <span className="visually-hidden">your cart</span>
       <span>
         
